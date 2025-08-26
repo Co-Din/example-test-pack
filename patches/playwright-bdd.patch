@@ -1,0 +1,31 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 7965bcdf688dc3bf92611684014831ed0535aa9d..9f0d9f0a709150456b464af58280c9626f7ada23 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,8 +1,11 @@
+ export { defineBddConfig, defineBddProject } from './config';
+ export { BDDInputConfig } from './config/types';
+ export { createBdd } from './steps/createBdd';
+-export { test } from './runtime/bddTestFixtures';
++export { test, type BddTestFixtures } from './runtime/bddTestFixtures';
++export { type BddWorkerFixtures } from './runtime/bddWorkerFixtures';
+ export { cucumberReporter } from './reporter/cucumber/wrapper';
+ export { defineParameterType, IParameterTypeDefinition } from './steps/parameterTypes';
+ export { DataTable } from './cucumber/DataTable';
++export type { CucumberStyleStepCtor, CucumberStyleStepFn } from './steps/styles/cucumberStyle';
++export type { PlaywrightStyleStepCtor, PlaywrightStyleStepFn } from './steps/styles/playwrightStyle';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/dist/steps/stepDefinition.js b/dist/steps/stepDefinition.js
+index 97a6cbd57c7ce0bc8000930414a4aeb7c879e169..dbe00ff004bfb5aa4f0e08e4595db452cb2428bb 100644
+--- a/dist/steps/stepDefinition.js
++++ b/dist/steps/stepDefinition.js
+@@ -107,7 +107,7 @@ class StepDefinition {
+         const relFilePath = (0, paths_1.relativeToCwd)(location.file);
+         const tagsFromPath = (0, tags_1.extractTagsFromPath)(relFilePath);
+         this.tagsExpression = (0, tags_1.buildTagsExpression)([
+-            ...tagsFromPath,
++            // ...tagsFromPath,
+             defaultTags,
+             providedOptions?.tags,
+         ]);

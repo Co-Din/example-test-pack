@@ -1,0 +1,46 @@
+{
+  "name": "example-test-pack",
+  "packageManager": "pnpm@10.6.5",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -Rf playwright-report || true",
+    "check": "eslint",
+    "check:audit": "audit-ci --config ./audit-ci.json5",
+    "check:lint": "eslint . --max-warnings=0 --config ./eslint.config.js",
+    "check:lint:fix": "eslint --fix",
+    "check:types": "tsc",
+    "check:types:watch": "tsc --watch",
+    "prepare": "husky",
+    "test": "pnpm bddgen && pnpm playwright test",
+    "test:local": "pnpm clean && pnpm i && pnpm t"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.55.0",
+    "example-tests-framework": "file:../example-tests-framework",
+    "playwright-bdd": "^8.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "audit-ci": "^7.1.0",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "typescript": "5.5.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "playwright-bdd": "patches/playwright-bdd.patch"
+    }
+  }
+}
